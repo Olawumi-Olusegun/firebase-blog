@@ -6,7 +6,7 @@ import { MdFacebook } from 'react-icons/md';
 import { AiOutlineMail } from 'react-icons/ai';
 import SignIn from './SignIn';
 import Signup from './Signup';
-import { auth, provider } from '../../firebase/firebase';
+import { auth, db, provider } from '../../firebase/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
@@ -21,8 +21,9 @@ const Auth = ({modal, setModal}) => {
         try {
            const createNewUser = await signInWithPopup(auth, provider);
             const newUser = createNewUser.user;
-            const userRef = doc(db, "users", newUser.id);
+            const userRef = doc(db, "users", newUser.uid);
             const userDoc = await getDoc(userRef);
+         
             if(!userDoc.exists()) {
                 await setDoc(userRef, {
                     userId: newUser.uid,

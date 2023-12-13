@@ -26,7 +26,7 @@ export default function DemoHeader() {
       <nav className="size h-[70px] flex items-center justify-between">
         <Link to="/">
           <img
-          src="./assets/medium.png" alt="logo"
+          src="/assets/medium.png" alt="logo"
           className="h-[2.5rem]"
           />
         </Link>

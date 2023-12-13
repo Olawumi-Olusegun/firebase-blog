@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { secretEmail } from '../../utils/helpers';
 
 
-export default function UserModal() {
+export default function UserModal({setModal}) {
 
     const {currentUser} = Blog();
 
@@ -48,7 +48,7 @@ export default function UserModal() {
         </Link>
         <div className="flex flex-col gap-4 border-b border-gray-300 pb-5">
             {links.map((link, index) => (
-                <Link key={index} to={link.path} className='flex items-center gap-2 text-gray-500 hover:text-black/70'>
+                <Link onClick={() => setModal(false)} key={index} to={link.path} className='flex items-center gap-2 text-gray-500 hover:text-black/70'>
                     <span className='text-2xl'>{link.icon}</span>
                     <h2 className='text-md'>{link.title}</h2>
                 </Link>

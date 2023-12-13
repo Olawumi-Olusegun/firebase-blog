@@ -1,13 +1,16 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase";
 import Loading from "../components/Loading";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 const BlogContext = createContext();
 
 const Context = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null);
+    const [allUsers, setAllUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [userLoading, setUserLoading] = useState(true);
 
     useEffect(() => {
       
@@ -22,13 +25,29 @@ const Context = ({children}) => {
             
         });
         return () => unsubscribe();
-    }, [currentUser])
+    }, [currentUser]);
 
-   
+    const getUsers = () => {
+        const postRef = query(collection(db, "users"));
+        onSnapshot(postRef, (snapshot) => {
+            const userDocs = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}));
+            setAllUsers(userDocs);
+            setUserLoading(false);
+        });
+    }
+
+    useEffect(() => {
+        getUsers();
+    }, [])
+
+
 
     const value = {
+        isLoading,
         currentUser,
-        setCurrentUser
+        setCurrentUser,
+        allUsers,
+        userLoading,
     }
 
     return <BlogContext.Provider value={value}>
