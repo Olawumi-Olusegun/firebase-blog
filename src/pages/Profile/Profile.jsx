@@ -64,21 +64,21 @@ export default function Profile() {
 
         </div>
 
-        <button onClick={() => setModal(prev => !prev)} className='fixed top-[8rem] md:hidden right-0 w-[2rem] h-[2rem] bg-black text-white flex items-center justify-center'>
+        <button onClick={() => setModal(prev => !prev)} className='fixed top-[8rem] md:hidden right-0 w-[2rem] h-[2rem] bg-black text-white rounded-tl-md rounded-bl-md flex items-center justify-center'>
             <IoMdSettings />
         </button>
 
         <Modal modal={modal} setModal={setModal}>
             <div className={`fixed right-0 top-0 bottom-0 w-[18rem] bg-white md:relative flex-[1] border-l border-gray-300 p-[2rem] z-10 transition-all duration-300 ${modal ? "translate-x-0" : "translate-x-[100%] md:translate-x-0"}`}>
                 <div className='text-right mb-4'>
-                <button onClick={() => setModal(false)} className='p-2 hover:bg-black/20 rounded-full duration-150 md:hidden cursor-pointer'>
+                <button onClick={() => setModal(false)} className='p-2 hover:bg-black hover:text-white rounded-full duration-300 md:hidden cursor-pointer'>
                     <LiaTimesSolid />
                 </button>
                 </div>
                 {/* Profile details */}
                 <div className="sticky top-7 flex flex-col justify-between">
                     <img src={`${currentUser?.userImage ? currentUser?.userImage : "/assets/avatar.jpg"}`} alt="profile" className='w-[3.5rem] h-[3.5rem] object-cover rounded-full' />
-                    {/* src={imageUrl ? imageUrl : form.userImage ? form.userImage : "/assets/avatar.jpg"} */}
+                   
                     <h2 className='py-2 font-bold capitalize'>Olawumi Olusegun</h2>
                     <p className='text-gray-500 first-letter:uppercase '>Software Engineer</p>
                     <button onClick={() => setEditModal(true)} type='button' title='Edit Profile' className='text-green-700 pt-6 text-sm w-fit font-semibold'>Edit Profile</button>

@@ -9,11 +9,13 @@ import { toast } from 'react-toastify'
 
 export default function EditProfile({editModal, setEditModal, userData}) {
 
-    const [form, setForm] = useState({
+    const formInitialValues = {
         username: "",
         bio: "",
         userImage: ""
-      });
+    }
+
+    const [form, setForm] = useState(formInitialValues);
 
       const [isLoading, setIsLoading] = useState(false);
 
@@ -47,17 +49,23 @@ export default function EditProfile({editModal, setEditModal, userData}) {
         
         try {
             setIsLoading(true);
-            const storageRef = ref(storage, `image/${form.userImage.name}`)
-            await uploadBytes(storageRef, form?.userImage);
-            const imageUrl = await getDownloadURL(storageRef);
+
+            let imageUrl = "";
+
+            if(form.userImage?.name) {
+                const storageRef = ref(storage, `images/${form.userImage.name}`)
+                await uploadBytes(storageRef, form?.userImage);
+                imageUrl = await getDownloadURL(storageRef);
+            }
+
             const docRef = doc(db, "users", userData?.userId);
+          
             await updateDoc(docRef, {
                 username: form.username,
                 bio: form.bio,
                 userImage: imageUrl ? imageUrl : form.userImage,
                 userId: userData?.userId,
             });
-            console.log("Submitting")
             setEditModal(false);
             toast.success("Updated successfully")
         } catch (error) {
@@ -69,12 +77,9 @@ export default function EditProfile({editModal, setEditModal, userData}) {
     }
 
     useEffect(() => {
-        if(userData) {
-            setForm(userData)
-        } else {
-            setForm({username: "", bio: "", userImage: ""})
-        }
-    }, [])
+        if(userData) setForm(userData)
+        else setForm(formInitialValues)
+    }, []);
 
    
 
@@ -83,7 +88,7 @@ export default function EditProfile({editModal, setEditModal, userData}) {
         <div className={`center w-[95%] md:w-[45rem] bg-white mx-auto shadows my-[1rem] z-20 mb-[3rem] p-[2rem] transition-all duration-300 ${editModal ? "visible opacity-100" : "invisible opacity-0"} `}>
             <div className="flex items-center justify-between">
                 <h2 className='font-bold text-xl'>Profile Information</h2>
-                <button className='text-xl' type='button' title='Close modal' onClick={() => setEditModal(false)}>
+                <button className='text-xl p-2 rounded-full duration-300 hover:bg-black hover:text-white' type='button' title='Close modal' onClick={() => setEditModal(false)}>
                     <LiaTimesSolid />
                 </button>
             </div>
@@ -99,8 +104,8 @@ export default function EditProfile({editModal, setEditModal, userData}) {
 
                     <div>
                      <div className="flex gap-4 text-sm">
-                        <button onClick={openFile} type='button' title='Update' className='text-green-600'>Update</button>
-                        <button onClick={handleDeleteImage} type='button' title='Update' className='text-red-600'>Remove</button>
+                        <button onClick={openFile} type='button' title='Upload Image' className='text-green-600'>Update</button>
+                        <button onClick={handleDeleteImage} type='button' title='Remove Image' className='text-red-600'>Remove</button>
                      </div>
                      <p className='w-full sm-[20rem] text-gray-500 text-sm pt-2'>
                         Recommended: Square JPG, PNG or JPEG at least 1,000 pixels per side.

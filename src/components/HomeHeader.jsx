@@ -52,7 +52,7 @@ export default function HomeHeader() {
           <img
             onClick={() => setModal(true)}
             className="w-[2.3rem] h-[2.3rem] object-cover rounded-full cursor-pointer"
-            src={`${userData.userImage ?? "/assets/avatar.jpg"}`}
+            src={`${userData.userImage ? userData.userImage : "/assets/avatar.jpg"}`}
             alt="profile-img"
             title='profile-image'
           />
