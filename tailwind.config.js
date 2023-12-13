@@ -12,7 +12,7 @@ export default {
       },
       fontFamily: {
         title: `gt-super, Georgia, Cambria, Times New Roman, Times, serif;`,
-        texts: `sohn, Helvetica Neue, Helvetica, Arial, san-serif`,
+        texts: `sohne, Helvetica Neue, Helvetica, Arial, san-serif`,
       },
       gridTemplateColumns: {
         card: "repeat(auto-fit, minmax(280px, 1fr))"

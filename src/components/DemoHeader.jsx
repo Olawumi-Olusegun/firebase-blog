@@ -25,9 +25,9 @@ export default function DemoHeader() {
     <header className={`border-b border-black sticky top-0 z-50 transition-all duration-500 ${isActive ? "bg-white" : "bg-banner" }`}>
       <nav className="size h-[70px] flex items-center justify-between">
         <Link to="/">
-          <img 
+          <img
           src="./assets/medium.png" alt="logo"
-          className="h-[2.5rem] "
+          className="h-[2.5rem]"
           />
         </Link>
         <div className="flex items-center gap-5">
@@ -37,12 +37,13 @@ export default function DemoHeader() {
             ))}
           </div>
             <div className='relative flex items-center gap-5'>
-              <button onClick={() => setModal(true)} type='button' className=' text-sm sm:flex items-center gap-5'>Sign In</button>
+              <button onClick={() => setModal(true)} type='button' className='hidden text-sm sm:flex items-center gap-5'>Sign In</button>
               <button onClick={() => setModal(true)} type='button' className={`rounded-full cursor-pointer px-3 p-2 text-sm font-semibold text-white transition-all duration-500 ${isActive ? "bg-green-700"  :"bg-black" } `}>Get Started</button>
             </div>
         </div>
       </nav>
     </header>
+
     </>
   )
 }

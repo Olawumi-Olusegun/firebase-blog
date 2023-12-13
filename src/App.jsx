@@ -1,19 +1,23 @@
-import { Routes, Route, } from 'react-router-dom';
+import { Routes, Route, Navigate, } from 'react-router-dom';
 import { Demo, Home } from './pages';
 import HomeHeader from './components/HomeHeader';
 import DemoHeader from './components/DemoHeader';
-
+import { Blog } from './context/Context';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 function App() {
 
-  const auth = false;
-
+  const { currentUser } = Blog();
   return (
     <>
-      { auth ? <HomeHeader /> : <DemoHeader /> }
+      { currentUser ? <HomeHeader /> : <DemoHeader /> }
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/demo' element={<Demo />} />
+        { currentUser && <Route path='/' element={<Home />} />}
+        { !currentUser && <Route path='/demo' element={<Demo />} />}
+        <Route path="*" element={<Navigate to={!currentUser ? "/demo" : '/' } />} />
+        
       </Routes>
+      <ToastContainer />
     </>
   )
 }
