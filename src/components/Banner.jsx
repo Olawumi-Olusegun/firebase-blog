@@ -11,7 +11,7 @@ export default function Banner () {
             <p className='w-full md:w-[30rem] text-[1.3rem] md:text-[1.5rem] font-medium leading-7'>
                 Discover stories, thinking and experties from writers on any topic
             </p>
-            <button type='button' className='btn bg-black1 rounded-full text-white ![text-1.2rem] px-6 !mt-[2.5rem] !font-semibold'>Start Reading</button>
+            <button type='button' className='btn bg-black rounded-full text-white ![text-1.2rem] px-6 !mt-[2.5rem] !font-semibold'>Start Reading</button>
         </div>
     </div>
     </>

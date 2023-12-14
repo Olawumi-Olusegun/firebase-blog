@@ -48,6 +48,7 @@ export default function EditProfile({editModal, setEditModal, userData}) {
         event.preventDefault();
         
         try {
+            
             setIsLoading(true);
 
             let imageUrl = "";

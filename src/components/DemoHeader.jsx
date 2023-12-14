@@ -7,7 +7,7 @@ export default function DemoHeader() {
 
   const [isActive, setIsActive] = useState(false);
 
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     const navbarScroll = () => {

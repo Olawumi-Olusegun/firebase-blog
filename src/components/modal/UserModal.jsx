@@ -5,12 +5,15 @@ import {BiSpreadsheet} from 'react-icons/bi';
 import { HiOutlineChartBar } from 'react-icons/hi';
 import {LiaEditSolid} from 'react-icons/lia';
 import { Blog } from '../../context/Context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { secretEmail } from '../../utils/helpers';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase/firebase';
+import { toast } from 'react-toastify';
 
 
 export default function UserModal({setModal}) {
-
+    const navigate = useNavigate();
     const {currentUser} = Blog();
 
     const links = [
@@ -36,6 +39,15 @@ export default function UserModal({setModal}) {
         },
     ];
 
+    const authSignOut = async () => {
+        try {
+            await signOut(auth);
+            navigate("/demo");
+        } catch (error) {
+            toast.error(error?.message);
+        }
+    }
+
 
   return (
     <section className='absolute w-[18rem] border border-black/10 p-6 bg-white right-0 top-16 shadows rounded-md z-50 text-gray-500'>
@@ -55,7 +67,7 @@ export default function UserModal({setModal}) {
             ))}
         </div>
 
-        <button className='flex flex-col pt-5 cursor-pointer hover:text-black/70'>
+        <button onClick={authSignOut} title='signout' className='flex flex-col pt-5 cursor-pointer hover:text-black/70'>
             Sign Out
             <span className='text-sm'>{secretEmail(currentUser?.email)}</span>
         </button>

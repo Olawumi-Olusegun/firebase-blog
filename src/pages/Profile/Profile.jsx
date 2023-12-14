@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import ProfileHome from '../../components/activities/ProfileHome';
 import ProfileList from '../../components/activities/ProfileList';
-import ProfileName from '../../components/activities/ProfileName';
 import ProfileAbout from '../../components/activities/ProfileAbout';
 import Modal from '../../components/modal/Modal';
 import { LiaTimesSolid } from 'react-icons/lia';
@@ -10,11 +10,12 @@ import EditProfile from './EditProfile';
 import { Blog } from '../../context/Context';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import useSingleFetch from '../../hooks/useSingleFetch';
 
 const activities = [
     {
         title: "Home",
-        Comp: ProfileName
+        Comp: ProfileHome
     },
     {
         title: "Lists",
@@ -33,23 +34,22 @@ export default function Profile() {
     const [modal, setModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
 
-    const { allUsers, isLoading } = Blog();
+    const { allUsers, isLoading, currentUser } = Blog();
     const { userId } = useParams();
-  
-    const currentUser = allUsers?.find((user) => user.id === userId) ?? null;
+   const { data: follows, } = useSingleFetch("users", userId, "follows");
+   const { data: followers, } = useSingleFetch("users", userId, "followers");
+    const getUserData = allUsers?.find((user) => user.id === userId) ?? null;
 
-    if(isLoading) {
-        return <Loading />
-    }
+    if(isLoading) return <Loading />
 
   return (
     <section className='size flex gap-[4rem] relative'>
         <div className="mt-[9rem] flex-[2]">
             
             <div className="flex items-center gap-4">
-                <h2 className="text-3xl sm:text-5xl font-bold capitalize">{currentUser?.username}</h2>
-                <p className='text-gray-500 text-xs sm:text-sm'>Followers(2)</p>
-                <p className='text-gray-500 text-xs sm:text-sm'>Following(10)</p>
+                <h2 className="text-3xl sm:text-5xl font-bold capitalize">{getUserData?.username}</h2>
+                <p className='text-gray-500 text-xs sm:text-sm'>Followers({followers?.length})</p>
+                <p className='text-gray-500 text-xs sm:text-sm'>Following({follows?.length})</p>
             </div>
 
         <div className='flex items-center gap-5 mt-[1rem] border-b border-gray-300 mb-[3rem]'>
@@ -60,7 +60,7 @@ export default function Profile() {
              ))}
         </div>
 
-        <currentActive.Comp currentUser={currentUser} setEditModal={setEditModal} />
+        <currentActive.Comp getUserData={getUserData} setEditModal={setEditModal} />
 
         </div>
 
@@ -77,11 +77,13 @@ export default function Profile() {
                 </div>
                 {/* Profile details */}
                 <div className="sticky top-7 flex flex-col justify-between">
-                    <img src={`${currentUser?.userImage ? currentUser?.userImage : "/assets/avatar.jpg"}`} alt="profile" className='w-[3.5rem] h-[3.5rem] object-cover rounded-full' />
+                    <img src={`${getUserData?.userImage ? getUserData?.userImage : "/assets/avatar.jpg"}`} alt="profile" className='w-[3.5rem] h-[3.5rem] object-cover rounded-full' />
                    
                     <h2 className='py-2 font-bold capitalize'>Olawumi Olusegun</h2>
                     <p className='text-gray-500 first-letter:uppercase '>Software Engineer</p>
-                    <button onClick={() => setEditModal(true)} type='button' title='Edit Profile' className='text-green-700 pt-6 text-sm w-fit font-semibold'>Edit Profile</button>
+                    {currentUser?.uid === getUserData?.userId && (
+                        <button onClick={() => setEditModal(true)} type='button' title='Edit Profile' className='text-green-700 pt-6 text-sm w-fit font-semibold'>Edit Profile</button>
+                    ) }
                 </div>
                 <div className='flex-[1] flex items-center flex-wrap gap-3 pt-8'>
                 {
@@ -93,7 +95,7 @@ export default function Profile() {
             </div>
         </Modal>
         {editModal && <EditProfile 
-                userData={currentUser} 
+                userData={getUserData} 
                 editModal={editModal} 
                 setEditModal={setEditModal} 
         />}
