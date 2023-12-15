@@ -76,7 +76,7 @@ export default function SinglePost() {
             </div>
             <div className='flex items-center justify-between border-y border-gray-200 py-[0.5rem] '>
                 <div className="flex items-center gap-5 ">
-                    <Like />
+                    <Like post={post} postId={postId} />
                     <Comment />
                 </div>
                 <div className='flex items-center pt-2 gap-5'>

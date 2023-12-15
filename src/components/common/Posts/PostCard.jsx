@@ -4,13 +4,11 @@ import Loading from '../../Loading';
 import { readTime } from '../../../utils/helpers';
 import moment from 'moment';
 import SavedPost from './Actions/SavedPost';
-import { Blog } from '../../../context/Context';
 import Actions from './Actions/Actions';
 import { Link } from 'react-router-dom';
 
 export default function PostCard({post}) {
     const {title, desc, createdAt, postImage, id: postId, userId, } = post;
-    const { currentUser } = Blog();
 
     const { data, isLoading } = useFetch("users");
     const getUserData = data && data?.find((user) => user.id === userId);
