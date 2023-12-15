@@ -3,16 +3,16 @@ import React, { useEffect, useRef } from 'react'
 export default function DropDown({children, size, showDropDown, setShowDropDown}) {
 
     const dropdownRef = useRef(null);
-
+    
     useEffect(() => {
         const clickOutside = (event) => {
-            if(!dropdownRef.current?.contains(event.target)) {
+            if (showDropDown && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setShowDropDown(false);
             }
         }
         window.addEventListener("mousedown", clickOutside);
         return () => window.removeEventListener("mousedown", clickOutside);
-    }, [])
+    }, [showDropDown, dropdownRef]);
 
   return (
     <>

@@ -86,10 +86,10 @@ export default function EditProfile({editModal, setEditModal, userData}) {
 
   return (
     <Modal modal={editModal} setModal={setEditModal}>
-        <div className={`center w-[95%] md:w-[45rem] bg-white mx-auto shadows my-[1rem] z-20 mb-[3rem] p-[2rem] transition-all duration-300 ${editModal ? "visible opacity-100" : "invisible opacity-0"} `}>
+        <div className={`center w-[95%] md:w-[45rem] bg-white mx-auto shadows my-[1rem] z-[50] mb-[3rem] p-[2rem] transition-all duration-300 ${editModal ? "visible opacity-100" : "invisible opacity-0"} `}>
             <div className="flex items-center justify-between">
                 <h2 className='font-bold text-xl'>Profile Information</h2>
-                <button className='text-xl p-2 rounded-full duration-300 hover:bg-black hover:text-white' type='button' title='Close modal' onClick={() => setEditModal(false)}>
+                <button className='text-xl p-2 rounded-full duration-300 hover:bg-black hover:text-white' type='button' title='Close' onClick={() => setEditModal(false)}>
                     <LiaTimesSolid />
                 </button>
             </div>

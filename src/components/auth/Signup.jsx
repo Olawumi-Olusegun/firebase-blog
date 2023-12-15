@@ -29,7 +29,8 @@ const handleFormSubmit = async (event) => {
             username: form.username,
             email: form.email,
             userImage: "",
-            bio: ""
+            bio: "",
+            createdAt: Date.now(),
         });
 
         navigate("/")

@@ -13,7 +13,7 @@ export default function Discover() {
             <button 
             type='button'
             key={index}
-            className='bg-gray-200 py-2 px-3 text-sm rounded-full'>{discover}</button>
+            className='bg-gray-200 hover:bg-gray-500 hover:text-white transition-colors duration-300 py-2 px-3 text-sm rounded-full'>{discover}</button>
           ))
           }
         </div>

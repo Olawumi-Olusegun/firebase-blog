@@ -69,7 +69,7 @@ export default function Profile() {
         </button>
 
         <Modal modal={modal} setModal={setModal}>
-            <div className={`fixed right-0 top-0 bottom-0 w-[18rem] bg-white md:relative flex-[1] border-l border-gray-300 p-[2rem] z-10 transition-all duration-300 ${modal ? "translate-x-0" : "translate-x-[100%] md:translate-x-0"}`}>
+            <div className={`fixed right-0 top-0 bottom-0 w-[18rem] bg-white md:relative flex-[1] border-l border-gray-300 p-[2rem] z-50 transition-all duration-300 ${modal ? "translate-x-0" : "translate-x-[100%] md:translate-x-0"}`}>
                 <div className='text-right mb-4'>
                 <button onClick={() => setModal(false)} className='p-2 hover:bg-black hover:text-white rounded-full duration-300 md:hidden cursor-pointer'>
                     <LiaTimesSolid />

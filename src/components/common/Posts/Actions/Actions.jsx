@@ -11,7 +11,7 @@ export default function Actions() {
 
   return (
     <div className='relative'>
-        <button className='text-2xl' onClick={handleClick}>
+        <button type='button' title='More' className='text-2xl' onClick={handleClick}>
             <BsThreeDots />
             <DropDown showDropDown={showDropDown} setShowDropDown={setShowDropDown} size="w-[7rem]">
                 <Button onClick={() => {}} className='' title='Edit Story' />

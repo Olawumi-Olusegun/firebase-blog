@@ -22,7 +22,7 @@ export default function DemoHeader() {
   return (
     <>
     <Auth modal={modal} setModal={setModal} />
-    <header className={`border-b border-black sticky top-0 z-50 transition-all duration-500 ${isActive ? "bg-white" : "bg-banner" }`}>
+    <header className={`border-b border-black sticky top-0 z-[30] transition-all duration-500 ${isActive ? "bg-white" : "bg-banner" }`}>
       <nav className="size h-[70px] flex items-center justify-between">
         <Link to="/">
           <img

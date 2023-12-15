@@ -5,12 +5,16 @@ import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../../firebase/firebase';
 import { toast } from 'react-toastify';
 import useSingleFetch from '../../../../hooks/useSingleFetch';
+import Loading from '../../../Loading';
 
 
 export default function SavedPost({post}) {
     const [isSaved, setIsSaved] = useState(false);
     const {currentUser} = Blog();
+
     const {data, isLoading} = useSingleFetch("users", post?.userId, "savedPost");
+
+
 
     const handleSave = async () => {
         try {
@@ -33,6 +37,7 @@ export default function SavedPost({post}) {
         setIsSaved(data && data.find((item) => item.id === post.id ))
     }, [data, post?.id]);
 
+    if(isLoading) return <Loading />
 
   return (
     <>
