@@ -15,6 +15,9 @@ const Context = ({children}) => {
     const [publish, setPublish] = useState(false);
     const [showCommentModal, setShowCommentModal] = useState(false);
     const [commentLength, setCommentLength] = useState(0);
+    const [updateData, setUpdateDate] = useState({});
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
     useEffect(() => {
       
@@ -60,7 +63,13 @@ const Context = ({children}) => {
         commentLength, 
         setCommentLength,
         postData,
-        postLoading
+        postLoading,
+        updateData, 
+        setUpdateDate,
+        title,
+        setTitle,
+        description,
+        setDescription,
     }
 
     return <BlogContext.Provider value={value}>

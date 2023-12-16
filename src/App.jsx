@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
 import SinglePost from './components/common/Posts/SinglePost';
 import PrivateRoute from './components/layouts/PrivateRoute';
+import EditPost from './components/common/Posts/EditPost';
 function App() {
 
   const { currentUser } = Blog();
@@ -20,6 +21,7 @@ function App() {
         { currentUser && <Route path='/write' element={<Write />} />}
         <Route element={<PrivateRoute />}>
           <Route path='/post/:postId' element={<SinglePost />} />
+          <Route path='/editpost/:postId' element={<EditPost />} />
         </Route>
         <Route path="*" element={<Navigate to={!currentUser ? "/demo" : '/' } />} />
       </Routes>

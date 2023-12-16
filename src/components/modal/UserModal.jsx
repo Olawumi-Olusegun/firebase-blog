@@ -50,7 +50,7 @@ export default function UserModal({setModal}) {
 
 
   return (
-    <section className='absolute w-[18rem] border border-black/10 p-6 bg-white right-0 top-16 shadows rounded-md z-50 text-gray-500'>
+    <section className='absolute w-[18rem] border border-black/10 p-6 bg-white right-0 top-16 shadows rounded-md z-[60] text-gray-500'>
        
         <Link to="/" className='md:hidden flex items-center gap-1 text-gray-500'>
             <span className='text-3xl'>

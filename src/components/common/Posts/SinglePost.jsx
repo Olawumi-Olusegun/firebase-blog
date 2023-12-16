@@ -83,7 +83,7 @@ export default function SinglePost() {
                 <div className='flex items-center pt-2 gap-5'>
                     <SavedPost post={post} />
                     <SharePost />
-                    {currentUser?.uid === post?.userId && <Actions /> }
+                    {currentUser?.uid === post?.userId && <Actions postId={postId} title={post.title} desc={post.desc} /> }
                 </div>
             </div>
             <div className='mt-[3rem]'>

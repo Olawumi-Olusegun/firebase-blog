@@ -1,7 +1,7 @@
 import React from 'react'
-import useFetch from '../../hooks/useFetch'
 import Loading from '../Loading';
 import PostCard from '../common/Posts/PostCard';
+import { Blog } from '../../context/Context';
 
 export default function ProfileHome({ getUserData }) {
     const { postData, postLoading } = Blog();

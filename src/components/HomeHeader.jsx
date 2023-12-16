@@ -3,24 +3,46 @@ import {BsMedium} from 'react-icons/bs'
 import {CiSearch} from 'react-icons/ci'
 import {IoMdNotificationsOutline} from 'react-icons/io'
 import {MdKeyboardArrowDown} from 'react-icons/md'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Search from './Search'
 import Modal from './modal/Modal'
 import UserModal from './modal/UserModal'
 import { Blog } from '../context/Context'
 import Loading from './Loading'
 import { LiaEditSolid } from 'react-icons/lia'
+import { collection, doc, updateDoc } from 'firebase/firestore'
+import { db } from '../firebase/firebase'
+import { toast } from 'react-toastify'
 
 export default function HomeHeader() {
 
+  const navigation = useNavigate();
+
   const [modal, setModal] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
-  const { allUsers, userLoading, currentUser, setPublish } = Blog();
+  const { allUsers, userLoading, currentUser, setPublish, title, description,  } = Blog();
+  const [isUpdateLoading, setIsUpdateLoading] = useState(false);
 
   const { pathname } = useLocation();
 
+  const editPath  = pathname.split("/")[1];
+  const postId  = pathname.split("/")[2];
 
   const userData = allUsers?.find((user) => user.id === currentUser.uid) ?? null;
+
+  const handleEdit = async () => {
+    try {
+      setIsUpdateLoading(true);
+      const updateRef = doc(db, "posts", postId);
+      await updateDoc(updateRef, { title, desc: description, updatedAt: Date.now() });
+      toast.success("Post updated");
+      navigation(`/post/${postId}`);
+    } catch (error) {
+      toast.success(error?.message);
+    } finally {
+      setIsUpdateLoading(false);
+    }
+  }
 
   if(userLoading) {
     return <Loading />
@@ -49,9 +71,17 @@ export default function HomeHeader() {
         </span>
 
         {
-          pathname === '/write' ? (
+          pathname === '/write' 
+          ? (
             <button onClick={() => setPublish(true)} title='publish' className='btn bg-green-700 !py-2 text-white rounded-full'>Publish</button>
-          ) : <Link to="/write" className='hidden md:flex items-center gap-1 text-ray-500'>
+          ) 
+          : editPath === "editpost" 
+          ? (
+            <button disabled={isUpdateLoading} onClick={handleEdit} title='Update' className={`btn bg-green-700 !py-2 text-white rounded-full ${isUpdateLoading ? "disabled:cursor-no-drop" : "" } `}>
+              { isUpdateLoading ? "Updating..." : "Save and Update" }
+            </button>
+          )
+          : <Link to="/write" className='hidden md:flex items-center gap-1 text-ray-500'>
             <span className='text-3xl'>
               <LiaEditSolid />
             </span>
