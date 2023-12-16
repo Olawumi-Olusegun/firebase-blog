@@ -4,11 +4,10 @@ import Loading from '../Loading';
 import PostCard from '../common/Posts/PostCard';
 
 export default function ProfileHome({ getUserData }) {
-    const { data, isLoading } = useFetch("posts");
+    const { postData, postLoading } = Blog();
+    if(postLoading) return <Loading />
 
-    if(isLoading) return <Loading />
-
-    const userPosts = data && data?.filter((post) => post?.userId === getUserData?.userId);
+    const userPosts = postData && postData?.filter((post) => post?.userId === getUserData?.userId);
 
   return (
     <div className='flex flex-col gap-5 mb-[4rem]'>

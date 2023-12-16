@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DropDown from '../../../DropDown'
 import { CiShare1 } from 'react-icons/ci';
+import { toast } from 'react-toastify';
 
 import { 
   FacebookShareButton,
@@ -19,8 +20,17 @@ import {
 export default function SharePost() {
 
   const [showDropDown, setShowDropDown] = useState(false);
-
-
+  const urlPath = window.location.href;
+  const handleCopyLink = async () => {
+        try {
+          await navigator.clipboard.writeText(urlPath);
+          toast.success("Link copied");
+          setShowDropDown(false);
+        } catch (error) {
+          toast.error(error?.message);
+          setShowDropDown(false);
+        }
+  }
 
   return (
     <div className='flex items-center relative'>
@@ -28,10 +38,19 @@ export default function SharePost() {
         <CiShare1 className="text-2xl" />
       </button>
       <DropDown showDropDown={showDropDown} setShowDropDown={setShowDropDown} size="w-[12rem]">
-        <Button onClick={() => {}} title="Copy link" icon={<BiLink />} />
-        <Button onClick={() => {}} title="Share on Twitter" icon={<BiLogoTwitter />} />
-        <Button onClick={() => {}} title="Share on Facebook" icon={<BiLogoFacebookCircle />} />
-        <Button onClick={() => {}} title="Share on LinkedIn" icon={<BiLogoLinkedinSquare />} />
+        <Button onClick={handleCopyLink} title="Copy link" icon={<BiLink />} />
+        
+        <TwitterShareButton url={urlPath}>
+          <Button onClick={() => {}} title="Share on Twitter" icon={<BiLogoTwitter />} />
+        </TwitterShareButton>
+
+        <FacebookShareButton url={urlPath}>
+          <Button onClick={() => {}} title="Share on Facebook" icon={<BiLogoFacebookCircle />} />
+        </FacebookShareButton>
+
+        <LinkedinShareButton url={urlPath}>
+          <Button onClick={() => {}} title="Share on LinkedIn" icon={<BiLogoLinkedinSquare />} />
+        </LinkedinShareButton>
       </DropDown>
     </div>
   )

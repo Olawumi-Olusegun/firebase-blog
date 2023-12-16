@@ -2,12 +2,14 @@ import React from 'react'
 import useFetch from '../../../hooks/useFetch'
 import Loading from '../../Loading';
 import PostCard from './PostCard';
+import { Blog } from '../../../context/Context';
 
 export default function Posts() {
 
-  const { data: postData, isLoading } = useFetch("posts");
+  // const { data: postData, isLoading } = useFetch("posts");
+  const {postData, postLoading} = Blog();
 
-  if(isLoading) return <Loading />;
+  if(postLoading) return <Loading />;
 
   return (
     <section className='flex flex-col gap-[2.5rem]'>

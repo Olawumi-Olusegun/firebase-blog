@@ -33,8 +33,8 @@ export default function SinglePost() {
                     const userRef = doc(db, "users", postData.userId);
                     const getUser = await getDoc(userRef);
                     if(getUser.exists()) {
-                        const userData = getUser.data();
-                        setPost({ ...postData, ...userData, id: postId })
+                        const { createdAt, ...restData } = getUser.data();
+                        setPost({ ...postData, ...restData, id: postId })
                         setIsLoading(false);
                     }
                 }
@@ -87,7 +87,9 @@ export default function SinglePost() {
                 </div>
             </div>
             <div className='mt-[3rem]'>
+               {postImage && (
                 <img src={postImage} alt="post-image" className='w-full h-[400px] object-cover rounded-md' />
+               ) } 
                 <div className='mt-6 text-justify ' dangerouslySetInnerHTML={{__html: desc }} />
             </div>
         </section>

@@ -3,10 +3,9 @@ import useFetch from '../../../hooks/useFetch';
 import Loading from '../../Loading';
 import { readTime } from '../../../utils/helpers';
 import moment from 'moment';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 
 export default function Post({post}) {
-    const navigate = useNavigate();
 
     const { title, desc, createdAt, postImage, id: postId, userId } = post;
 
@@ -18,7 +17,9 @@ export default function Post({post}) {
   
   return (
     <Link to={`/post/${postId}`} className='w-full cursor-pointer ' >
+      {postImage && (
         <img src={postImage} alt="post-image" className='w-full h-[200px] object-cover rounded-md' />
+      )}
         <div className='flex items-center gap-1 py-3'>
             <img src={getUser?.userImage || "/assets/avatar.jpg"} alt="user-image" className='w-[2rem] h-[2rem] my-2 object-cover rounded-full ' />
             <h3 className='text-sm capitalize'> {getUser?.username} </h3>
