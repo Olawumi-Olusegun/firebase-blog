@@ -12,6 +12,8 @@ const Context = ({children}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [userLoading, setUserLoading] = useState(true);
     const [publish, setPublish] = useState(false);
+    const [showCommentModal, setShowCommentModal] = useState(false);
+    const [commentLength, setCommentLength] = useState(0);
 
     useEffect(() => {
       
@@ -51,6 +53,10 @@ const Context = ({children}) => {
         userLoading,
         publish, 
         setPublish,
+        showCommentModal, 
+        setShowCommentModal,
+        commentLength, 
+        setCommentLength,
     }
 
     return <BlogContext.Provider value={value}>

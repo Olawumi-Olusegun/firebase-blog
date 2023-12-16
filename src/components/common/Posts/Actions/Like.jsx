@@ -8,7 +8,7 @@ import useSingleFetch from '../../../../hooks/useSingleFetch';
 import { formatNumber } from '../../../../utils/helpers';
 
 
-export default function Like({post, postId}) {
+export default function Like({postId}) {
 
   const [isLiked, setIsLiked] = useState(false);
 

@@ -14,6 +14,7 @@ import Comment from './Actions/Comment';
 import SharePost from './Actions/SharePost';
 import Actions from './Actions/Actions';
 import Recommended from './Recommended';
+import Comments from '../Comments/Comments';
 
 export default function SinglePost() {
     const { postId } = useParams();
@@ -76,7 +77,7 @@ export default function SinglePost() {
             </div>
             <div className='flex items-center justify-between border-y border-gray-200 py-[0.5rem] '>
                 <div className="flex items-center gap-5 ">
-                    <Like post={post} postId={postId} />
+                    <Like postId={postId} />
                     <Comment />
                 </div>
                 <div className='flex items-center pt-2 gap-5'>
@@ -91,6 +92,7 @@ export default function SinglePost() {
             </div>
         </section>
         {post?.id && <Recommended post={post} />}
+        <Comments postId={postId} />
     </>
   )
 }

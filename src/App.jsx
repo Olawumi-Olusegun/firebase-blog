@@ -22,7 +22,6 @@ function App() {
           <Route path='/post/:postId' element={<SinglePost />} />
         </Route>
         <Route path="*" element={<Navigate to={!currentUser ? "/demo" : '/' } />} />
-        
       </Routes>
       <ToastContainer />
     </>
