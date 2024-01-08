@@ -10,7 +10,7 @@ import Loading from '../../../Loading';
 
 export default function SavedPost({post}) {
     const [isSaved, setIsSaved] = useState(false);
-    const {currentUser} = Blog();
+    const {currentUser, setAuthModal} = Blog();
 
     const {data, isLoading} = useSingleFetch("users", post?.userId, "savedPost");
 
@@ -27,6 +27,8 @@ export default function SavedPost({post}) {
                     await setDoc(savedRef, { ...post });
                     toast.success("Post saved");
                 }
+            }else {
+                setAuthModal(true)
             }
         } catch (error) {
             
@@ -34,8 +36,8 @@ export default function SavedPost({post}) {
     }
 
     useEffect(() => {
-        setIsSaved(data && data.find((item) => item.id === post.id ))
-    }, [data, post?.id]);
+        setIsSaved(data && data.find((item) => item.id === currentUser?.uid) !== -1)
+    }, [data, currentUser?.uid]);
 
     if(isLoading) return <Loading />
 

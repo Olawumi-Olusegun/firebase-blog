@@ -18,6 +18,7 @@ const Context = ({children}) => {
     const [updateData, setUpdateDate] = useState({});
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [authModal, setAuthModal] = useState(false);
 
     useEffect(() => {
       
@@ -70,6 +71,8 @@ const Context = ({children}) => {
         setTitle,
         description,
         setDescription,
+        authModal, 
+        setAuthModal,
     }
 
     return <BlogContext.Provider value={value}>

@@ -1,5 +1,5 @@
-import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { doc, getDoc, increment, updateDoc } from 'firebase/firestore';
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { db } from '../../../firebase/firebase';
 import { toast } from 'react-toastify';
@@ -21,6 +21,27 @@ export default function SinglePost() {
     const [post, setPost] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const { currentUser } = Blog();
+
+    // increment page views
+    const initiaRender = useRef(true);
+
+    useEffect(() => {
+        if(initiaRender?.current) {
+            const incrementPageView = async () => {
+                try {
+                    const ref = doc(db, "posts", postId);
+                    await updateDoc(ref, {
+                        pageViews: increment(1)
+                    }, { merge: true });
+                } catch (error) {
+                    toast.error(error?.message)
+                }
+            }
+
+            incrementPageView();
+        }
+        initiaRender.current = false;
+    }, []);
 
     const fetchPost = async () => {
         try {
@@ -67,7 +88,7 @@ export default function SinglePost() {
                 <div>
                     <div className='capitalize'>
                         <span>{username}</span>
-                        {currentUser?.uid == userId && <FollowButton userId={userId} />}
+                        {currentUser &&  currentUser?.uid == userId && <FollowButton userId={userId} />}
                     </div>
                     <p className="text-sm text-gray-500">
                         {readTime({__html: desc})} min read.
@@ -83,7 +104,7 @@ export default function SinglePost() {
                 <div className='flex items-center pt-2 gap-5'>
                     <SavedPost post={post} />
                     <SharePost />
-                    {currentUser?.uid === post?.userId && <Actions postId={postId} title={post.title} desc={post.desc} /> }
+                    {currentUser && currentUser?.uid === post?.userId && <Actions postId={postId} title={post.title} desc={post.desc} /> }
                 </div>
             </div>
             <div className='mt-[3rem]'>

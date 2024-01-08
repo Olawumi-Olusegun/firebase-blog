@@ -21,6 +21,7 @@ export default function Actions({postId, title, desc }) {
 
     const handleDeletePost = async () => {
         try {
+            
             const deleteRef = doc(db, "posts", postId);
 
             const likeRefs = doc(db, "posts", postId, "likes", currentUser?.uid);

@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import { signInWithPopup } from 'firebase/auth';
 
-const Auth = ({modal, setModal}) => {
+const Auth = ({authModal, setAuthModal}) => {
     const navigate = useNavigate();
     const [createUser, setCreateUser] = useState(false);
     const [signinReq, setSignInReq] = useState("");
@@ -37,7 +37,7 @@ const Auth = ({modal, setModal}) => {
 
                 navigate("/")
                 toast.success("New user created successfully");
-                setModal(false)
+                setAuthModal(false)
             }
         } catch (error) {
             toast.error(error?.message);
@@ -45,12 +45,12 @@ const Auth = ({modal, setModal}) => {
     }
 
 
-    const hidden = modal ? "visible opacity-100" : "invisible opacity-0";
+    const hidden = authModal ? "visible opacity-100" : "invisible opacity-0";
 
   return (
-    <Modal modal={modal} setModal={setModal} hidden={hidden}>
+    <Modal modal={authModal} setModal={setAuthModal} hidden={hidden}>
         <section className={`shadow translate-all duration-500 z-50 fixed top-0 bottom-0 left-0 md:left-[10rem] overflow-auto right-0 md:right-[10rem] bg-white ${hidden}`}>
-            <button type='button' title='close modal' onClick={() => setModal(false)} className='absolute p-2 top-8 right-8 text-2xl rounded-full hover:bg-black hover:text-white'>
+            <button type='button' title='close modal' onClick={() => setAuthModal(false)} className='absolute p-2 top-8 right-8 text-2xl rounded-full hover:bg-black hover:text-white'>
                 <LiaTimesSolid />
             </button>
 

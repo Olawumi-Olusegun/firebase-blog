@@ -12,7 +12,7 @@ export default function Like({postId}) {
 
   const [isLiked, setIsLiked] = useState(false);
 
-  const { currentUser } = Blog();
+  const { currentUser, setAuthModal } = Blog();
 
   const {data} = useSingleFetch("posts", postId, "likes");
 
@@ -25,6 +25,8 @@ export default function Like({postId}) {
         } else {
           await setDoc(likeRef, { userId: currentUser?.uid });
         }
+      } else {
+        setAuthModal(true)
       }
     } catch (error) {
         toast.error(error?.message);

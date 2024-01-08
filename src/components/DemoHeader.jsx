@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { navs } from './../data/nav';
 import Auth from './auth/Auth';
+import { Blog } from '../context/Context';
 
 export default function DemoHeader() {
 
   const [isActive, setIsActive] = useState(false);
 
-  const [modal, setModal] = useState(false);
+  const {authModal, setAuthModal} = Blog();
 
   useEffect(() => {
     const navbarScroll = () => {
@@ -21,7 +22,7 @@ export default function DemoHeader() {
 
   return (
     <>
-    <Auth modal={modal} setModal={setModal} />
+    <Auth authModal={authModal} setAuthModal={setAuthModal} />
     <header className={`border-b border-black sticky top-0 z-[30] transition-all duration-500 ${isActive ? "bg-white" : "bg-banner" }`}>
       <nav className="size h-[70px] flex items-center justify-between">
         <Link to="/">
@@ -37,8 +38,8 @@ export default function DemoHeader() {
             ))}
           </div>
             <div className='relative flex items-center gap-5'>
-              <button onClick={() => setModal(true)} type='button' className='hidden text-sm sm:flex items-center gap-5'>Sign In</button>
-              <button onClick={() => setModal(true)} type='button' className={`rounded-full cursor-pointer px-3 p-2 text-sm font-semibold text-white transition-all duration-500 ${isActive ? "bg-green-700"  :"bg-black" } `}>Get Started</button>
+              <button onClick={() => setAuthModal(true)} type='button' className='hidden text-sm sm:flex items-center gap-5'>Sign In</button>
+              <button onClick={() => setAuthModal(true)} type='button' className={`rounded-full cursor-pointer px-3 p-2 text-sm font-semibold text-white transition-all duration-500 ${isActive ? "bg-green-700"  :"bg-black" } `}>Get Started</button>
             </div>
         </div>
       </nav>
