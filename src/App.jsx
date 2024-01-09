@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css"
 import SinglePost from './components/common/Posts/SinglePost';
 import PrivateRoute from './components/layouts/PrivateRoute';
 import EditPost from './components/common/Posts/EditPost';
+import FilterPost from './components/FilterPost';
 function App() {
 
   const { currentUser } = Blog();
@@ -18,6 +19,7 @@ function App() {
         { currentUser && <Route path='/' element={<Home />} />}
         { !currentUser && <Route path='/demo' element={<Demo />} />}
         <Route path='/profile/:userId' element={<Profile />} />
+        <Route path='/filter/:postId' element={<FilterPost />} />
         { currentUser && <Route path='/write' element={<Write />} />}
         <Route element={<PrivateRoute />}>
           <Route path='/post/:postId' element={<SinglePost />} />

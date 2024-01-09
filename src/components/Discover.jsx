@@ -1,7 +1,9 @@
 import React from 'react'
 import { discoverActions, discovers } from '../data/nav'
+import { useNavigate } from 'react-router-dom'
 
 export default function Discover() {
+  const navigate = useNavigate();
   return (
     <div className='sticky top-[6rem]'>
       <div className="border-b border-gray-400 pb-7">
@@ -11,6 +13,7 @@ export default function Discover() {
         <div className='my-2 flex items-center flex-wrap gap-3'>
           {discovers.map((discover, index) => (
             <button 
+            onClick={() => navigate(`/filter/${discover.toLocaleLowerCase()}`)}
             type='button'
             key={index}
             className='bg-gray-200 hover:bg-gray-500 hover:text-white transition-colors duration-300 py-2 px-3 text-sm rounded-full'>{discover}</button>
